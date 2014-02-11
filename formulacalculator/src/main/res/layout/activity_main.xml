@@ -7,9 +7,27 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Please choose a formula to proceed"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Please select a formula"
         android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp" />
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvFormulas"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp" />
+        android:choiceMode="singleChoice"
+        android:clickable="true"
+        android:smoothScrollbar="true"
+        android:drawSelectorOnTop="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Formula"
+        android:id="@+id/btnChooseFormula"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>
