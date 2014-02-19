@@ -35,6 +35,7 @@ public class MainActivity extends ActionBarActivity {
                 "Linear Functions",
                 "Exponential Functions"
         };
+
         //creating an adapter for the listview
         ArrayAdapter<String> lvFormulasAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_single_choice, formulas) {
 
@@ -59,7 +60,6 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-
         btnChooseFormula.setOnClickListener(new View.OnClickListener() { //setting the click listener for the button
             @Override
             public void onClick(View v) {
@@ -80,15 +80,15 @@ public class MainActivity extends ActionBarActivity {
         return formulaTypeUnformatted.substring(0, formulaTypeUnformatted.indexOf(indexFind)); // return everything in front of the space / dash
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
         // inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
     AlertDialog alert; //alert dialog for later reference; placed within the class to avoid final declaration
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
