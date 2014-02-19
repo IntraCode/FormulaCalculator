@@ -9,21 +9,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
+
+    View selectedView = null; //field to get the selected view
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView lvFormulas = (ListView) findViewById(R.id.lvFormulas); //initialize the listview
-        Button btnChooseFormula = (Button) findViewById(R.id.btnChooseFormula);
-        String[] formulas = new String[] { // string-array with the supported formulas
+        final ListView lvFormulas = (ListView) findViewById(R.id.lvFormulas); //initialize the listview
+        final Button btnChooseFormula = (Button) findViewById(R.id.btnChooseFormula);
+        final String[] formulas = new String[] { // string-array with the supported formulas
                 "PQ-Formula",
                 "ABC-Formula",
                 "URI-Formulas",
@@ -39,29 +43,48 @@ public class MainActivity extends ActionBarActivity {
             public View getView (int position, View convertView, ViewGroup parent) {
                 View mView = super.getView(position, convertView, parent);
                 if (mView != null) {
-                TextView textView = (TextView) mView.findViewById(android.R.id.text1);
-                textView.setTextColor(Color.BLACK);
+                    TextView textView = (TextView) mView.findViewById(android.R.id.text1);
+                    textView.setTextColor(Color.BLACK);
+                    mView.setTag(getFormulaType(String.valueOf(textView.getText()))); // sets the formula type as a string to the tag
                 }
                 return mView;
             }
         };
 
         lvFormulas.setAdapter(lvFormulasAdapter); //set the adapter
+        lvFormulas.setOnItemClickListener(new AdapterView.OnItemClickListener() { // is triggered when the an item is clicked
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedView = view; //assign the field
+            }
+        });
+
 
         btnChooseFormula.setOnClickListener(new View.OnClickListener() { //setting the click listener for the button
             @Override
             public void onClick(View v) {
-                //TODO: pass through parameters to the next activity
-                //TODO: create an enum with all possibilities
+                if (selectedView != null) {
+                    String formula = (String)selectedView.getTag(); // get the formula type from the tag
+                    Toast.makeText(getApplicationContext(), formula, Toast.LENGTH_SHORT).show(); // show the text which has been retrieved
+                }
             }
         });
+    }
+
+    private String getFormulaType(String formulaTypeUnformatted) {
+        char indexFind = (formulaTypeUnformatted.contains(" ")) ? ' ' : '-'; // determines what to look for
+
+        if (indexFind == -1) // return null if there is no space / dash character
+            return null;
+
+        return formulaTypeUnformatted.substring(0, formulaTypeUnformatted.indexOf(indexFind)); // return everything in front of the space / dash
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
