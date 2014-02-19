@@ -52,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
         };
 
         lvFormulas.setAdapter(lvFormulasAdapter); //set the adapter
-        lvFormulas.setOnItemClickListener(new AdapterView.OnItemClickListener() { // is triggered when the an item is clicked
+        lvFormulas.setOnItemClickListener(new AdapterView.OnItemClickListener() { // is triggered when an item is clicked
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedView = view; //assign the field
